@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Web.Data;
 using Shop.Web.Data.Entities;
 using Shop.Web.Helpers;
+using Shop.Web.Models;
 
 namespace Shop.Web.Controllers
 {
@@ -54,17 +56,51 @@ namespace Shop.Web.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductViewModel productvm)
         {
             if (ModelState.IsValid)
             {
+                var path = string.Empty;
+
+                if(productvm.ImageFile!=null && productvm.ImageFile.Length > 0)
+                {
+                    path = Path.Combine(
+                        Directory.GetCurrentDirectory(), 
+                        "wwwroot\\images\\Products",
+                        productvm.ImageFile.FileName);
+
+                    using(var stream=new FileStream(path, FileMode.Create))
+                    {
+                        await productvm.ImageFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/Products/{productvm.ImageFile.FileName}";
+                }
+                var product = this.ToProduct(productvm,path);
+
                 //TODO: Cambiar por el usuario logueado
-                product.User = await this.userHelper.GetUserByEmailAsync("bladi135@gmail.com");
+                productvm.User = await this.userHelper.GetUserByEmailAsync("bladi135@gmail.com");
                 await this.productRepository.CreateAsync(product);
                            
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(productvm);
+        }
+
+        private Product ToProduct(ProductViewModel productvm, string path)
+        {
+            return new Product
+            {
+                Id = productvm.Id,
+                ImageUrl = path,
+                IsAvailable = productvm.IsAvailable,
+                LastPurchase = productvm.LastPurchase,
+                LastSale = productvm.LastSale,
+                Name = productvm.Name,
+                Price = productvm.Price,
+                Stock = productvm.Stock,
+                User = productvm.User
+            };
         }
 
         // GET: Products/Edit/5
