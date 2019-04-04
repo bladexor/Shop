@@ -26,13 +26,18 @@ namespace Shop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Servicio de Conexion a SQL Server
            services.AddDbContext<DataContext>(cfg =>
            {
                cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
            });
 
-
+            //SERVICIO DEL Seeder
             services.AddTransient<SeedDb>();
+
+            //iNYECCION DEL REPOSITORIO INTERMEDIO PARA CONEXION A BD
+            //iMPORTANTE PARA CREAR PRUEBAS UNITARIAS CON DATOS FALSOS SIN BD
+            services.AddScoped<IRepository, Repository>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
