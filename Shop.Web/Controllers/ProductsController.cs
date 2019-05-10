@@ -116,7 +116,25 @@ namespace Shop.Web.Controllers
             {
                 return NotFound();  
             }
-            return View(product);
+            var view = this.ToProductViewModel(product);
+
+            return View(view);
+        }
+
+        private ProductViewModel ToProductViewModel(Product product)
+        {
+            return new ProductViewModel
+            {
+                Id = product.Id,
+                ImageUrl = product.ImageUrl,
+                IsAvailable = product.IsAvailable,
+                LastPurchase = product.LastPurchase,
+                LastSale = product.LastSale,
+                Name = product.Name,
+                Price = product.Price,
+                Stock = product.Stock,
+                User = product.User
+            };
         }
 
         // POST: Products/Edit/5
@@ -124,21 +142,39 @@ namespace Shop.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int? id, ProductViewModel pvm)
         {
            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //TODO: Cambiar por el usuario logueado
+                    var path = pvm.ImageUrl;
+
+                    if (pvm.ImageFile != null && pvm.ImageFile.Length > 0)
+                    {
+                        path = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot\\images\\Products",
+                            pvm.ImageFile.FileName);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await pvm.ImageFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/Products/{pvm.ImageFile.FileName}";
+                    }
+                    var product = this.ToProduct(pvm, path);
+
+                    //TODO:  Cambiar por el usuario logueado
                     product.User = await this.userHelper.GetUserByEmailAsync("bladi135@gmail.com");
                     await this.productRepository.UpdateAsync(product);
                     
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await this.productRepository.ExistAsync(product.Id))
+                    if (!await this.productRepository.ExistAsync(pvm.Id))
                     {
                         return NotFound();
                     }
@@ -149,7 +185,7 @@ namespace Shop.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(pvm);
         }
 
         // GET: Products/Delete/5
