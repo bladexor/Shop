@@ -27,7 +27,7 @@ namespace Shop.Web.Controllers
         // GET: Products
         public IActionResult Index()
         {
-            return View(this.productRepository.GetAll());
+            return View(this.productRepository.GetAll().OrderBy(p=>p.Name));
         }
 
         // GET: Products/Details/5
