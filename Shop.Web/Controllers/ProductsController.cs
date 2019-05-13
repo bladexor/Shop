@@ -64,17 +64,20 @@ namespace Shop.Web.Controllers
 
                 if(productvm.ImageFile!=null && productvm.ImageFile.Length > 0)
                 {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg";
+
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(), 
                         "wwwroot\\images\\Products",
-                        productvm.ImageFile.FileName);
+                       file);
 
                     using(var stream=new FileStream(path, FileMode.Create))
                     {
                         await productvm.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{productvm.ImageFile.FileName}";
+                    path = $"~/images/Products/{file}";
                 }
                 var product = this.ToProduct(productvm,path);
 
@@ -153,17 +156,20 @@ namespace Shop.Web.Controllers
 
                     if (pvm.ImageFile != null && pvm.ImageFile.Length > 0)
                     {
+                        var guid = Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg";
+
                         path = Path.Combine(
                             Directory.GetCurrentDirectory(),
                             "wwwroot\\images\\Products",
-                            pvm.ImageFile.FileName);
+                            file);
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await pvm.ImageFile.CopyToAsync(stream);
                         }
 
-                        path = $"~/images/Products/{pvm.ImageFile.FileName}";
+                        path = $"~/images/Products/{file}";
                     }
                     var product = this.ToProduct(pvm, path);
 
