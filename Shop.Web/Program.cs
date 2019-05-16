@@ -18,7 +18,7 @@ namespace Shop.Web
         {
             //CreateWebHostBuilder(args).Build().Run();
             var host = CreateWebHostBuilder(args)
-            //.UseUrls("https://localhost:5000", "https://192.168.0.221:5000")
+        
             .Build();
             RunSeeding(host);
             host.Run();

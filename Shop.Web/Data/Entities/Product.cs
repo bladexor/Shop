@@ -43,7 +43,7 @@ namespace Shop.Web.Data.Entities
                     return null;
                 }
 
-                return $"https://localhost:44336{this.ImageUrl.Substring(1)}";
+                return $"http://192.168.1.201:5000{this.ImageUrl.Substring(1)}";
             }
         }
 

@@ -37,7 +37,7 @@ namespace Shop.UIForms.ViewModels
         {
             this.IsRefreshing = true;
             var response = await this.apiService.GetListAsync<Product>(
-                "http://192.168.0.221:5000",
+                "http://192.168.1.201:5000",
                 "/api",
                 "/Products");
 
