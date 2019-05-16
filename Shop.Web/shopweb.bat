@@ -1,1 +1,1 @@
-dotnet run .\bin\Debug\netcoreapp2.1\Shop.Web.dll
+dotnet run ./
