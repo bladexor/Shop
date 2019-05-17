@@ -26,6 +26,11 @@ namespace Shop.Web.Data
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            //Add Roles
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
+            
+            //Add User
             var user = await this.userHelper.GetUserByEmailAsync("bladi135@gmail.com");
             if (user == null)
             {
@@ -43,8 +48,17 @@ namespace Shop.Web.Data
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
 
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
+            //Add Products
             if (!this.context.Products.Any())
             {
                 this.AddProduct("Mini Radio FM",user);
