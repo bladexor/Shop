@@ -11,14 +11,14 @@ namespace Shop.Web.Helpers
     public class UserHelper : IUserHelper
     {
         private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> sigInManager;
+        private readonly SignInManager<User> signInManager;
 
         public UserHelper(
             UserManager<User> userManager,
             SignInManager<User> signInManager)
         {
             this.userManager = userManager;
-            this.sigInManager = signInManager;
+            this.signInManager = signInManager;
         }
 
         public async Task<IdentityResult> AddUserAsync(User user, string password)
@@ -33,7 +33,7 @@ namespace Shop.Web.Helpers
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            return await this.sigInManager.PasswordSignInAsync(
+            return await this.signInManager.PasswordSignInAsync(
                 model.Username,
                 model.Password,
                 model.RememberMe,
@@ -42,7 +42,7 @@ namespace Shop.Web.Helpers
 
         public async Task LogoutAsync()
         {
-            await this.sigInManager.SignOutAsync();
+            await this.signInManager.SignOutAsync();
         }
 
         public async Task<IdentityResult> UpdateUserAsync(User user)
@@ -54,6 +54,15 @@ namespace Shop.Web.Helpers
         {
             return await this.userManager.ChangePasswordAsync(user, oldPassword, newPassword);
         }
+
+        public async Task<SignInResult> ValidatePasswordAsync(User user, string password)
+        {
+            return await this.signInManager.CheckPasswordSignInAsync(
+                user,
+                password,
+                false);
+        }
+
 
     }
 }
