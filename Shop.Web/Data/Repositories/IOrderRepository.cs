@@ -20,6 +20,8 @@ namespace Shop.Web.Data.Repositories
 
         Task ModifyOrderDetailTempQuantityAsync(int id, double quantity);
 
+        Task DeleteDetailTempAsync(int id);
+
     }
 
 }

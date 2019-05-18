@@ -110,6 +110,19 @@ namespace Shop.Web.Data.Repositories
             }
         }
 
+        public async Task DeleteDetailTempAsync(int id)
+        {
+            var orderDetailTemp = await this.context.OrderDetailTemps.FindAsync(id);
+            if (orderDetailTemp == null)
+            {
+                return;
+            }
+
+            this.context.OrderDetailTemps.Remove(orderDetailTemp);
+            await this.context.SaveChangesAsync();
+        }
+
+
 
     }
 
