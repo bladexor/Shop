@@ -73,6 +73,13 @@ namespace Shop.Web
 
             services.AddScoped<IUserHelper, UserHelper>();
 
+            //Para controlar Redireccion de vistas NoAuthorized por seguridad
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -98,6 +105,7 @@ namespace Shop.Web
                 app.UseHsts();
             }
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}"); //Para manejar redirerccion ERROR 404
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

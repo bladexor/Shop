@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,13 +38,13 @@ namespace Shop.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound"); //return NotFound();
             }
 
             var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");  //return NotFound();
             }
 
             return View(product);
@@ -225,6 +226,20 @@ namespace Shop.Web.Controllers
             await this.productRepository.DeleteAsync(product);
             
             return RedirectToAction(nameof(Index));
+        }
+
+        public class NotFoundViewResult : ViewResult
+        {
+            public NotFoundViewResult(string viewName)
+            {
+                ViewName = viewName;
+                StatusCode = (int)HttpStatusCode.NotFound;
+            }
+        }
+
+        public IActionResult ProductNotFound()
+        {
+            return this.View();
         }
 
     }
