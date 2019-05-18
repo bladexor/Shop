@@ -95,6 +95,18 @@ namespace Shop.Web.Controllers
             return this.RedirectToAction("Create");
         }
 
+        public async Task<IActionResult> ConfirmOrder()
+        {
+            var response = await this.orderRepository.ConfirmOrderAsync(this.User.Identity.Name);
+            if (response)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            return this.RedirectToAction("Create");
+        }
+
+
 
 
     }

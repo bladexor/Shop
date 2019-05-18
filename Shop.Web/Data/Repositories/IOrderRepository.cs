@@ -22,6 +22,8 @@ namespace Shop.Web.Data.Repositories
 
         Task DeleteDetailTempAsync(int id);
 
+        Task<bool> ConfirmOrderAsync(string userName);
+
     }
 
 }
