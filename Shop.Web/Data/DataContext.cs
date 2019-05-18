@@ -14,12 +14,20 @@ namespace Shop.Web.Data
 
         public DbSet<Country> Countries { get; set; }
 
+        //For Orders Functionality
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<OrderDetailTemp> OrderDetailTemps { get; set; }
+
+
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+       /* protected override void OnModelCreating(ModelBuilder builder)
         {
 
             builder.Entity<Product>()
@@ -36,6 +44,6 @@ namespace Shop.Web.Data
             }
 
             base.OnModelCreating(builder);
-        }
+        } */
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Shop.Web.Data;
 using Shop.Web.Data.Entities;
+using Shop.Web.Data.Repositories;
 using Shop.Web.Helpers;
 
 namespace Shop.Web
@@ -70,6 +71,7 @@ namespace Shop.Web
             //iMPORTANTE PARA CREAR PRUEBAS UNITARIAS CON DATOS FALSOS SIN BD
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IUserHelper, UserHelper>();
 
