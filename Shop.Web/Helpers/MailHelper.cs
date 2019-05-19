@@ -31,8 +31,10 @@ namespace Shop.Web.Helpers
             message.From.Add(new MailboxAddress(from));
             message.To.Add(new MailboxAddress(to));
             message.Subject = subject;
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = body;
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = body
+            };
             message.Body = bodyBuilder.ToMessageBody();
 
             using (var client = new SmtpClient())

@@ -106,6 +106,17 @@ namespace Shop.Web.Helpers
             return await this.userManager.FindByIdAsync(userId);
         }
 
+        // Para Recuperar Contraseña
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await this.userManager.GeneratePasswordResetTokenAsync(user);
+        }
 
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await this.userManager.ResetPasswordAsync(user, token, password);
+
+        }
+
+        }
     }
-}

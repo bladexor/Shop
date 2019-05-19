@@ -38,5 +38,12 @@ namespace Shop.Web.Helpers
 
         Task<User> GetUserByIdAsync(string userId);
 
+        //Para Recuperar Contraseña
+        Task<string> GeneratePasswordResetTokenAsync(User user);
+
+        Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
+
+
+        
     }
 }
