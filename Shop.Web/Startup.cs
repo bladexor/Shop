@@ -33,7 +33,10 @@ namespace Shop.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole>(cfg=>
-            {
+            {   //Para confirmacion de Email de Usuarios
+                cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                cfg.SignIn.RequireConfirmedEmail = true;
+
                 cfg.User.RequireUniqueEmail = true;
                 cfg.Password.RequireDigit = false;
                 cfg.Password.RequiredUniqueChars = 0;
@@ -41,7 +44,8 @@ namespace Shop.Web
                 cfg.Password.RequireNonAlphanumeric = false;
                 cfg.Password.RequireUppercase = false;
                 cfg.Password.RequiredLength = 6;
-            }).AddEntityFrameworkStores<DataContext>();
+            }).AddDefaultTokenProviders() //Para confirmacion de Emails
+            .AddEntityFrameworkStores<DataContext>();
 
             //Para Autenticacion con Tokens de seguridad para el API ProductsController
             services.AddAuthentication()
@@ -74,6 +78,8 @@ namespace Shop.Web
             services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IUserHelper, UserHelper>();
+
+            services.AddScoped<IMailHelper, MailHelper>(); //Para Confirmacion de EMAIL
 
             //Para controlar Redireccion de vistas NoAuthorized por seguridad
             services.ConfigureApplicationCookie(options =>

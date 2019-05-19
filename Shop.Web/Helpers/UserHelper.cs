@@ -90,6 +90,22 @@ namespace Shop.Web.Helpers
         }
 
 
+        //Para Validacion de Email
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await this.userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await this.userManager.FindByIdAsync(userId);
+        }
+
 
     }
 }
