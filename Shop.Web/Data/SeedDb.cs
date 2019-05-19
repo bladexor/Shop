@@ -13,7 +13,7 @@ namespace Shop.Web.Data
     {
         private readonly DataContext context;
         private readonly IUserHelper userHelper;
-        private Random random;
+        private readonly Random random;
 
         public SeedDb(DataContext context,IUserHelper userHelper)
         {
@@ -29,7 +29,28 @@ namespace Shop.Web.Data
             //Add Roles
             await this.userHelper.CheckRoleAsync("Admin");
             await this.userHelper.CheckRoleAsync("Customer");
-            
+
+            //Add Cities and Country
+            if (!this.context.Countries.Any())
+            {
+                var cities = new List<City>
+                {
+                    new City { Name = "Medellín" },
+                    new City { Name = "Bogotá" },
+                    new City { Name = "Calí" }
+                };
+
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Colombia"
+                });
+
+                await this.context.SaveChangesAsync();
+            }
+
+
+
             //Add User
             var user = await this.userHelper.GetUserByEmailAsync("bladi135@gmail.com");
             if (user == null)
@@ -40,7 +61,11 @@ namespace Shop.Web.Data
                     LastName = "Velásquez",
                     Email = "bladi135@gmail.com",
                     UserName = "bladi135@gmail.com",
-                    PhoneNumber="04121907221"
+                    PhoneNumber="04121907221",
+                    Address = "Calle Luna Calle Sol",
+                    CityIde = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
+
                 };
 
                 var result = await this.userHelper.AddUserAsync(user, "123456");

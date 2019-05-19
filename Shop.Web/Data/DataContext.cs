@@ -14,6 +14,8 @@ namespace Shop.Web.Data
 
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
         //For Orders Functionality
         public DbSet<Order> Orders { get; set; }
 
@@ -21,6 +23,8 @@ namespace Shop.Web.Data
 
         public DbSet<OrderDetailTemp> OrderDetailTemps { get; set; }
 
+        //For Cities and Countries
+        
 
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
