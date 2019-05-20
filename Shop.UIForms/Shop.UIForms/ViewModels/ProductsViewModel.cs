@@ -36,10 +36,19 @@ namespace Shop.UIForms.ViewModels
         private async void LoadProducts()
         {
             this.IsRefreshing = true;
+         //   var response = await this.apiService.GetListAsync<Product>(
+         //       "http://192.168.1.201:5000",
+         //       "/api",
+         //       "/Products");
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<Product>(
-                "http://192.168.1.201:5000",
+                url,
                 "/api",
-                "/Products");
+                "/Products",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
+
 
             this.IsRefreshing = false;
 
