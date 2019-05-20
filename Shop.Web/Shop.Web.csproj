@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="node_modules\datatable\jquery.dataTables.min.css" />
     <Content Include="wwwroot\node_modules\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
     <Content Include="wwwroot\node_modules\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.css" />
     <Content Include="wwwroot\node_modules\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css" />
@@ -32,11 +33,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="node_modules\" />
     <Folder Include="wwwroot\images\Products\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="node_modules\datatable\jquery.dataTables.min.js" />
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build.less" />
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build3.less" />
     <None Include="wwwroot\node_modules\bootstrap-datepicker\build\build_standalone.less" />
