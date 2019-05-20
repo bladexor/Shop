@@ -95,18 +95,11 @@ namespace Shop.UIForms.ViewModels
             var token = (TokenResponse)response.Result;
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
+            mainViewModel.UserEmail = this.Email;
+            mainViewModel.UserPassword = this.Password;
             mainViewModel.Products = new ProductsViewModel();
             Application.Current.MainPage = new MasterPage();
-            // await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
-
-            // await Application.Current.MainPage.DisplayAlert(
-            //      "OK",
-            //    "Fuck yeah!!!",
-            //  "Accept");
-            //MainViewModel.GetInstance().Products = new ProductsViewModel();
-            //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
-
-
+      
         }
     }
 }
