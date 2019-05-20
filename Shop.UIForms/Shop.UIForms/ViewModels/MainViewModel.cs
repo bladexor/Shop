@@ -1,20 +1,29 @@
-﻿using Shop.Common.Models;
+﻿using GalaSoft.MvvmLight.Command;
+using Shop.Common.Models;
+using Shop.UIForms.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 
 namespace Shop.UIForms.ViewModels
 {
     
     public class MainViewModel
     {
+        public string UserEmail { get; set; }
+
+        public string UserPassword { get; set; }
+
         private static MainViewModel instance;
 
         public LoginViewModel Login { get; set; }
 
         public ProductsViewModel Products { get; set; }
+
+        public AddProductViewModel AddProduct { get; set; }
 
         public TokenResponse Token { get; set; }
 
@@ -69,6 +78,14 @@ namespace Shop.UIForms.ViewModels
                 Title = m.Title
             }).ToList());
         }
+
+        public ICommand AddProductCommand => new RelayCommand(this.GoAddProduct);
+    private async void GoAddProduct()
+        {
+            this.AddProduct = new AddProductViewModel();
+            await App.Navigator.PushAsync(new AddProductPage());
+        }
+
 
     }
 }
