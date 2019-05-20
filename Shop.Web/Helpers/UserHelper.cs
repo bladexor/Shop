@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shop.Web.Data.Entities;
 using Shop.Web.Models;
 
@@ -118,5 +119,25 @@ namespace Shop.Web.Helpers
 
         }
 
+        // Para el Administrador de Usuarios
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await this.userManager.Users
+                .Include(u => u.City)
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName)
+                .ToListAsync();
         }
+
+        public async Task RemoveUserFromRoleAsync(User user, string roleName)
+        {
+            await this.userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            await this.userManager.DeleteAsync(user);
+        }
+
     }
+}
