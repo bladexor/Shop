@@ -25,6 +25,8 @@ namespace Shop.UIForms.ViewModels
 
         public AddProductViewModel AddProduct { get; set; }
 
+        public EditProductViewModel EditProduct { get; set; }
+
         public TokenResponse Token { get; set; }
 
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
