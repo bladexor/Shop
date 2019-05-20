@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
+using Shop.Common.Helpers;
 using Shop.Common.Models;
 using Shop.Common.Services;
 using Shop.UIForms.Views;
@@ -22,6 +24,7 @@ namespace Shop.UIForms.ViewModels
             this.IsEnabled = true;
             this.Email = "bladi135@gmail.com";
             this.Password = "123456";
+            this.IsRemember = true;
         }
 
 
@@ -40,6 +43,7 @@ namespace Shop.UIForms.ViewModels
         public string Email { get; set; }
 
         public string Password { get; set; }
+        public bool IsRemember { get; set; }
 
         public ICommand LoginCommand {
             get {
@@ -98,6 +102,12 @@ namespace Shop.UIForms.ViewModels
             mainViewModel.UserEmail = this.Email;
             mainViewModel.UserPassword = this.Password;
             mainViewModel.Products = new ProductsViewModel();
+
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
+
             Application.Current.MainPage = new MasterPage();
       
         }

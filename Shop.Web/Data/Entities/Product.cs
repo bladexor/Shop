@@ -42,7 +42,8 @@ namespace Shop.Web.Data.Entities
             {
                 if (string.IsNullOrEmpty(this.ImageUrl))
                 {
-                    return null;
+                    //return null;
+                    return $"http://192.168.1.201:5000/images/noImage.png";
                 }
 
                 return $"http://192.168.1.201:5000{this.ImageUrl.Substring(1)}";
