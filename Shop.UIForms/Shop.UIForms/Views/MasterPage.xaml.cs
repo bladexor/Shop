@@ -12,6 +12,8 @@ namespace Shop.UIForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : MasterDetailPage
     {
+        
+
         public MasterPage()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace Shop.UIForms.Views
         {
             base.OnAppearing();
             App.Navigator = this.Navigator;
+            App.Master = this;
         }
 
     }
