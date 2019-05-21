@@ -41,6 +41,8 @@ namespace Shop.UIForms.Helpers
 
         public static string EmailOrPasswordIncorrect => Resource.EmailOrPasswordIncorrect;
 
+        public static string ForgotPassword => Resource.ForgotPassword;
+
     }
 
 }

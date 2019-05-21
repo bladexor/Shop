@@ -23,6 +23,8 @@ namespace Shop.UIForms.ViewModels
 
         public RegisterViewModel Register { get; set; }
 
+        public RecoverPasswordViewModel RecoverPassword { get; set; }
+
         public ProductsViewModel Products { get; set; }
 
         public AddProductViewModel AddProduct { get; set; }

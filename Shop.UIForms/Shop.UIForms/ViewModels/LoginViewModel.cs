@@ -54,6 +54,15 @@ namespace Shop.UIForms.ViewModels
 
         public ICommand RegisterCommand => new RelayCommand(this.Register);
 
+        public ICommand RecoverPasswordCommand => new RelayCommand(this.RecoverPassword);
+
+
+        private async void RecoverPassword()
+        {
+            MainViewModel.GetInstance().RecoverPassword = new RecoverPasswordViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RecoverPasswordPage());
+        }
+
         private async void Register()
         {
             MainViewModel.GetInstance().Register = new RegisterViewModel();
