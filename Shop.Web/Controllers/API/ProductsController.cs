@@ -8,6 +8,8 @@ namespace Shop.Web.Controllers.API
     using Microsoft.AspNetCore.Mvc;
     using Shop.Web.Data.Entities;
     using Shop.Web.Helpers;
+    using System;
+    using System.IO;
     using System.Threading.Tasks;
 
     [Route("api/[Controller]")]
@@ -46,6 +48,23 @@ namespace Shop.Web.Controllers.API
             }
 
             //TODO: Upload images
+            var imageUrl = string.Empty;
+            if (product.ImageArray != null && product.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(product.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Products";
+                var fullPath = $"~/images/Products/{file}";
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
+
             var entityProduct = new Product
             {
                 IsAvailable = product.IsAvailable,
@@ -54,7 +73,9 @@ namespace Shop.Web.Controllers.API
                 Name = product.Name,
                 Price = product.Price,
                 Stock = product.Stock,
-                User = user
+                User = user,
+                ImageUrl = imageUrl
+
             };
 
             var newProduct = await this.productRepository.CreateAsync(entityProduct);
