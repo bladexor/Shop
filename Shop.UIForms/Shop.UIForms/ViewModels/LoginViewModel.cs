@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Shop.Common.Helpers;
 using Shop.Common.Models;
 using Shop.Common.Services;
+using Shop.UIForms.Helpers;
 using Shop.UIForms.Views;
 using System;
 using System.Collections.Generic;
@@ -56,18 +57,18 @@ namespace Shop.UIForms.ViewModels
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a email.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailError,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a password.",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
 
@@ -92,7 +93,10 @@ namespace Shop.UIForms.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.EmailOrPasswordIncorrect,
+                    Languages.Accept);
                 return;
             }
 
