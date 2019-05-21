@@ -151,6 +151,15 @@ namespace Shop.UIForms.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Register new user.
+        /// </summary>
+        public static string RegisterNewUser {
+            get {
+                return ResourceManager.GetString("RegisterNewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Remember me in this device.
         /// </summary>
         public static string Remember {

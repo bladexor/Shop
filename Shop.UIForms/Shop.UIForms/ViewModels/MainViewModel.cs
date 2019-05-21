@@ -21,6 +21,8 @@ namespace Shop.UIForms.ViewModels
 
         public LoginViewModel Login { get; set; }
 
+        public RegisterViewModel Register { get; set; }
+
         public ProductsViewModel Products { get; set; }
 
         public AddProductViewModel AddProduct { get; set; }

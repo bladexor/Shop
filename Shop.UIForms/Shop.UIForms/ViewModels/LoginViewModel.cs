@@ -52,6 +52,14 @@ namespace Shop.UIForms.ViewModels
             }
         }
 
+        public ICommand RegisterCommand => new RelayCommand(this.Register);
+
+        private async void Register()
+        {
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
         private async void Login()
         {
             if (string.IsNullOrEmpty(this.Email))
