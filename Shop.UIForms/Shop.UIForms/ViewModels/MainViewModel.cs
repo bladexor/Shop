@@ -11,14 +11,22 @@ using System.Windows.Input;
 namespace Shop.UIForms.ViewModels
 {
     
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
+        private User user;
+
+        public User User
+        {
+            get => this.user;
+            set => this.SetValue(ref this.user, value);
+        }
+
+
         public string UserEmail { get; set; }
 
         public string UserPassword { get; set; }
 
-        public User User { get; set; }
-
+        public ProfileViewModel Profile { get; set; }
 
         private static MainViewModel instance;
 

@@ -165,6 +165,43 @@ namespace Shop.Web.Controllers.API
             return Ok(user);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> PutUser([FromBody] User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(ModelState);
+            }
+
+            var userEntity = await this.userHelper.GetUserByEmailAsync(user.Email);
+            if (userEntity == null)
+            {
+                return this.BadRequest("User not found.");
+            }
+
+            var city = await this.countryRepository.GetCityAsync(user.CityId);
+            if (city != null)
+            {
+                userEntity.City = city;
+            }
+
+            userEntity.FirstName = user.FirstName;
+            userEntity.LastName = user.LastName;
+            userEntity.CityIde = user.CityId;
+            userEntity.Address = user.Address;
+            userEntity.PhoneNumber = user.PhoneNumber;
+
+            var respose = await this.userHelper.UpdateUserAsync(userEntity);
+            if (!respose.Succeeded)
+            {
+                return this.BadRequest(respose.Errors.FirstOrDefault().Description);
+            }
+
+            var updatedUser = await this.userHelper.GetUserByEmailAsync(user.Email);
+            return Ok(updatedUser);
+        }
+
+
 
     }
 

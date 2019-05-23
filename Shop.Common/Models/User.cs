@@ -61,6 +61,9 @@ namespace Shop.Common.Models
         [JsonProperty("cityId")]
         public int CityId { get; set; }
 
+        [JsonProperty("cityIde")]
+        public int CityIde { get; set; } //TODO: Redundante pero posible solucion
+
         [JsonProperty("address")]
         public string Address { get; set; }
 
