@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 namespace Shop.Web.Controllers.API
 {
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using Common.Models;
     using Data;
     using Helpers;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -134,6 +137,34 @@ namespace Shop.Web.Controllers.API
                 Message = "An email with instructions to change the password was sent."
             });
         }
+
+        [HttpPost]
+        [Route("GetUserByEmail")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUserByEmail([FromBody] RecoverPasswordRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "Bad request"
+                });
+            }
+
+            var user = await this.userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return this.BadRequest(new Response
+                {
+                    IsSuccess = false,
+                    Message = "User don't exists."
+                });
+            }
+
+            return Ok(user);
+        }
+
 
     }
 

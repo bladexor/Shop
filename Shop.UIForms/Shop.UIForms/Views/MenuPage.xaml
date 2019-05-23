@@ -12,6 +12,11 @@
             	HeightRequest="150"
             	Source="e_shop_icon">
             </Image>
+            <Label
+	                               FontSize="Large"
+	                               Text="{Binding User.FullName, StringFormat='Welcome: {0}'}"
+	                               TextColor="Black">
+            </Label>
             <ListView
             	ItemsSource="{Binding Menus}"
             	HasUnevenRows="True"
@@ -38,7 +43,7 @@
                                 	Grid.Column="1"
                                 	FontAttributes="Bold"
                                 	VerticalOptions="Center"
-                                	TextColor="White"
+                                	TextColor="Black"
                                 	Text="{Binding Title}">
                                 </Label>
                             </Grid>
