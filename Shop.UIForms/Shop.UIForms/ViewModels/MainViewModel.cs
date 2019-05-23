@@ -28,6 +28,8 @@ namespace Shop.UIForms.ViewModels
 
         public ProfileViewModel Profile { get; set; }
 
+        public ChangePasswordViewModel ChangePassword { get; set; }
+
         private static MainViewModel instance;
 
         public LoginViewModel Login { get; set; }
