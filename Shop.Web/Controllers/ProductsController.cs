@@ -73,7 +73,7 @@ namespace Shop.Web.Controllers
 
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(), 
-                        "wwwroot\\images\\Products",
+                        "wwwroot//images//Products",
                        file);
 
                     using(var stream=new FileStream(path, FileMode.Create))
@@ -164,9 +164,9 @@ namespace Shop.Web.Controllers
                         var guid = Guid.NewGuid().ToString();
                         var file = $"{guid}.jpg";
 
-                        path = Path.Combine(
+                         path = Path.Combine(
                             Directory.GetCurrentDirectory(),
-                            "wwwroot\\images\\Products",
+                            "wwwroot//images//Products",
                             file);
 
                         using (var stream = new FileStream(path, FileMode.Create))

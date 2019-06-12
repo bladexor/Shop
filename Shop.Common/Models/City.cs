@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shop.Common.Models
+﻿namespace Shop.Common.Models
 {
     using Newtonsoft.Json;
 
